@@ -1,0 +1,77 @@
+<!-- Footer Component -->
+<footer class="bg-gray-900 text-white pt-16 pb-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <!-- About Column -->
+            <div>
+                <div class="flex items-center mb-4">
+                    <div class="h-10 w-10 bg-primary rounded-md flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">G</span>
+                    </div>
+                    <span class="ml-2 text-xl font-semibold">Gridline</span>
+                </div>
+                <p class="text-gray-400 mb-4">Innovative design solutions for architecture, engineering and construction projects in Birmingham and across the UK.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Quick Links Column -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                <ul class="footer-links space-y-2 text-gray-400">
+                    <li><a href="index.html" class="hover:text-white transition-colors duration-300">Home</a></li>
+                    <li><a href="about.html" class="hover:text-white transition-colors duration-300">About Us</a></li>
+                    <li><a href="services.html" class="hover:text-white transition-colors duration-300">Services</a></li>
+                    <li><a href="portfolio.html" class="hover:text-white transition-colors duration-300">Portfolio</a></li>
+                    <li><a href="contact.html" class="hover:text-white transition-colors duration-300">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Services Column -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Services</h3>
+                <ul class="footer-links space-y-2 text-gray-400">
+                    <li><a href="services.html#architecture" class="hover:text-white transition-colors duration-300">Architectural Design</a></li>
+                    <li><a href="services.html#mep" class="hover:text-white transition-colors duration-300">MEP Engineering</a></li>
+                    <li><a href="services.html#structural" class="hover:text-white transition-colors duration-300">Structural Design</a></li>
+                    <li><a href="services.html#quantity" class="hover:text-white transition-colors duration-300">Quantity Surveying</a></li>
+                    <li><a href="services.html#project" class="hover:text-white transition-colors duration-300">Project Management</a></li>
+                </ul>
+            </div>
+            
+            <!-- Newsletter Column -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
+                <p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest updates and projects.</p>
+                <form class="flex">
+                    <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l-md focus:outline-none text-gray-900">
+                    <button type="submit" class="bg-primary hover:bg-primary-dark px-4 py-2 rounded-r-md transition-colors duration-300">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+            <p>&copy; <span id="current-year">2023</span> Gridline Architects and MEP Design Consultants. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Update copyright year with JavaScript -->
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</footer>

@@ -1,0 +1,128 @@
+/* responsive.css - Mobile-specific styles */
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+    .container {
+        max-width: 960px;
+    }
+    
+    .hero-section h1 {
+        font-size: 3.5rem;
+    }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    .container {
+        max-width: 720px;
+    }
+    
+    .hero-section h1 {
+        font-size: 3rem;
+    }
+    
+    .hero-section p {
+        font-size: 1.1rem;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .service-card {
+        margin-bottom: 30px;
+    }
+    
+    .project-card {
+        margin-bottom: 30px;
+    }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+    .container {
+        max-width: 540px;
+    }
+    
+    .hero-section {
+        height: 70vh;
+        min-height: 400px;
+    }
+    
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-section p {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .swiper-slide {
+        height: 300px;
+    }
+    
+    .page-transition {
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    
+    /* Simplify animations on mobile */
+    .stagger-item {
+        transition-delay: 0.1s !important;
+    }
+    
+    .project-card:hover {
+        transform: scale(1.02);
+    }
+    
+    .service-card:hover {
+        transform: translateY(-5px);
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-section p {
+        font-size: 0.9rem;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .footer-column {
+        margin-bottom: 2rem;
+    }
+    
+    /* Stack grid items */
+    .grid-cols-2, 
+    .grid-cols-3, 
+    .grid-cols-4 {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Further simplify animations */
+    .animation-wrapper .fade-left,
+    .animation-wrapper .fade-right {
+        transform: translateX(0);
+        transition: opacity 0.5s ease;
+    }
+}

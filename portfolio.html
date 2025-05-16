@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Gridline Architects | Showcase of Our Architectural & MEP Projects</title>
+    <meta name="description" content="Explore Gridline Architects' portfolio of innovative architectural and MEP design projects across residential, commercial, and industrial sectors.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/2.7.1/css/lightgallery.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f9fafb;
+            overflow-x: hidden;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary);
+        }
+        
+        .bg-primary-dark {
+            background-color: var(--primary-dark);
+        }
+        
+        .bg-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .bg-dark {
+            background-color: var(--dark);
+        }
+        
+        .text-primary {
+            color: var(--primary);
+        }
+        
+        .text-secondary {
+            color: var(--secondary);
+        }
+        
+        .text-dark {
+            color: var(--dark);
+        }
+        
+        .text-light {
+            color: var(--light);
+        }
+        
+        .border-primary {
+            border-color: var(--primary);
+        }
+        
+        .hover\:bg-primary-dark:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .hover\:text-primary:hover {
+            color: var(--primary);
+        }
+        
+        /* Section Titles */
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        /* Portfolio Filter */
+        .filter-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .filter-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--secondary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        
+        .filter-btn:hover::after,
+        .filter-btn.active::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Project Cards */
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-card .project-image {
+            transition: transform 0.8s ease;
+            height: 280px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+        
+        .project-card .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .project-card .project-category {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Testimonials */
+        .testimonial-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 60px;
+            color: rgba(37, 99, 235, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .client-image {
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--primary);
+            object-fit: cover;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+            z-index: 99;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        
+        /* Preloader */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        
+        .loader-icon {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(37, 99, 235, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .stagger-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+        
+        /* Hero Section */
+        .hero-portfolio {
+            height: 70vh;
+            min-height: 600px;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        
+        .hero-portfolio::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(30, 41, 59, 0.9), rgba(30, 41, 59, 0.6));
+        }
+        
+        /* Modal Styles */
+        .project-modal {
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .project-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .project-modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .gallery-item {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Loading spinner for buttons */
+        .btn-spinner {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.75s linear infinite;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        /* Focus styles for better accessibility */
+        button:focus, a:focus, input:focus, textarea:focus, select:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-portfolio {
+                height: 60vh;
+                min-height: 500px;
+            }
+            
+            .section-title::after {
+                width: 60px;
+            }
+            
+            .modal-content {
+                max-height: 85vh;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .hero-portfolio {
+                height: 50vh;
+                min-height: 400px;
+            }
+            
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+            
+            .project-card .project-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-icon"></div>
+    </div>
+
+    <div class="page-wrapper relative">
+        <!-- Header will be loaded here -->
+        <div id="header-container"></div>
+
+        <!-- Main Content -->
+        <main class="page-content">
+            <!-- Hero Banner -->
+            <section class="hero-section hero-portfolio relative" style="background-image: url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center justify-center">
+                    <div class="text-center max-w-4xl">
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-slide-up">Our Portfolio</h1>
+                        <p class="text-xl md:text-2xl text-white opacity-90 mb-8 animate-slide-up animate-delay-1">Discover our award-winning architectural and MEP design projects that transform visions into reality</p>
+                        <div class="animate-slide-up animate-delay-2">
+                            <a href="#portfolio" class="inline-block px-8 py-3 bg-primary text-white font-medium rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 mr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                                <i class="fas fa-images mr-2" aria-hidden="true"></i> View Projects
+                            </a>
+                            <a href="contact.html" class="inline-block px-8 py-3 bg-white text-primary font-medium rounded-lg shadow-lg hover:bg-gray-100 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                                <i class="fas fa-paper-plane mr-2" aria-hidden="true"></i> Get in Touch
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Scroll Down Indicator -->
+                <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                    <a href="#portfolio" class="text-white text-2xl focus:outline-none" aria-label="Scroll down to portfolio">
+                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Portfolio Filter -->
+            <section id="portfolio" class="py-16 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12 animate-fade-in">
+                        <span class="text-primary font-medium mb-2 inline-block">OUR WORK</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4 section-title">Featured Projects</h2>
+                        <p class="text-lg text-gray-600 max-w-3xl mx-auto">Explore our diverse portfolio of architectural and MEP design excellence</p>
+                    </div>
+                    
+                    <div class="flex flex-wrap justify-center gap-4 mb-12 animate-slide-up">
+                        <button class="px-6 py-2 bg-primary text-white font-medium rounded-full shadow-md transition-all duration-300 filter-btn active focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" data-filter="all" aria-label="Show all projects">
+                            <i class="fas fa-th-large mr-2" aria-hidden="true"></i> All Projects
+                        </button>
+                        <button class="px-6 py-2 bg-gray-100 text-gray-700 font-medium rounded-full shadow-md hover:bg-primary hover:text-white transition-all duration-300 filter-btn focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" data-filter="residential" aria-label="Filter residential projects">
+                            <i class="fas fa-home mr-2" aria-hidden="true"></i> Residential
+                        </button>
+                        <button class="px-6 py-2 bg-gray-100 text-gray-700 font-medium rounded-full shadow-md hover:bg-primary hover:text-white transition-all duration-300 filter-btn focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" data-filter="commercial" aria-label="Filter commercial projects">
+                            <i class="fas fa-building mr-2" aria-hidden="true"></i> Commercial
+                        </button>
+                        <button class="px-6 py-2 bg-gray-100 text-gray-700 font-medium rounded-full shadow-md hover:bg-primary hover:text-white transition-all duration-300 filter-btn focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" data-filter="industrial" aria-label="Filter industrial projects">
+                            <i class="fas fa-industry mr-2" aria-hidden="true"></i> Industrial
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Project 1 - Residential -->
+                        <div class="project-card stagger-item delay-1" data-category="residential">
+                            <div class="relative overflow-hidden rounded-t-lg">
+                                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Modern Residence" class="project-image w-full" loading="lazy">
+                                <div class="project-overlay">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Modern Residence</h3>
+                                    <p class="text-white opacity-90 mb-4">Contemporary family home in London featuring sustainable materials and energy-efficient design.</p>
+                                    <button class="text-white hover:text-secondary font-medium inline-block project-details-btn focus:outline-none" data-project="project1" aria-label="View details of Modern Residence project">
+                                        View Details <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <span class="project-category">Residential</span>
+                            </div>
+                            <div class="bg-white p-6 rounded-b-lg">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="text-xl font-bold text-dark">Modern Residence</h3>
+                                    <span class="text-xs font-medium text-white bg-primary py-1 px-3 rounded-full">Residential</span>
+                                </div>
+                                <div class="flex items-center text-gray-500 text-sm mb-3">
+                                    <i class="fas fa-map-marker-alt mr-2 text-primary" aria-hidden="true"></i>
+                                    <span>London, UK</span>
+                                </div>
+                                <p class="text-gray-600 mb-4">Contemporary family home featuring sustainable materials and energy-efficient design.</p>
+                                <button class="text-primary hover:text-primary-dark font-medium inline-flex items-center project-details-btn focus:outline-none" data-project="project1" aria-label="View details of Modern Residence project">
+                                    View Details <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 2 - Commercial -->
+                        <div class="project-card stagger-item delay-2" data-category="commercial">
+                            <div class="relative overflow-hidden rounded-t-lg">
+                                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Office Complex" class="project-image w-full" loading="lazy">
+                                <div class="project-overlay">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Office Complex</h3>
+                                    <p class="text-white opacity-90 mb-4">Modern corporate headquarters with integrated smart building technology.</p>
+                                    <button class="text-white hover:text-secondary font-medium inline-block project-details-btn focus:outline-none" data-project="project2" aria-label="View details of Office Complex project">
+                                        View Details <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <span class="project-category">Commercial</span>
+                            </div>
+                            <div class="bg-white p-6 rounded-b-lg">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="text-xl font-bold text-dark">Office Complex</h3>
+                                    <span class="text-xs font-medium text-white bg-primary py-1 px-3 rounded-full">Commercial</span>
+                                </div>
+                                <div class="flex items-center text-gray-500 text-sm mb-3">
+                                    <i class="fas fa-map-marker-alt mr-2 text-primary" aria-hidden="true"></i>
+                                    <span>Birmingham, UK</span>
+                                </div>
+                                <p class="text-gray-600 mb-4">Modern corporate headquarters with integrated smart building technology.</p>
+                                <button class="text-primary hover:text-primary-dark font-medium inline-flex items-center project-details-btn focus:outline-none" data-project="project2" aria-label="View details of Office Complex project">
+                                    View Details <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 3 - Industrial -->
+                        <div class="project-card stagger-item delay-3" data-category="industrial">
+                            <div class="relative overflow-hidden rounded-t-lg">
+                                <img src="https://images.unsplash.com/photo-1500380804539-4e1e8c1e7118?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Industrial Facility" class="project-image w-full" loading="lazy">
+                                <div class="project-overlay">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Industrial Facility</h3>
+                                    <p class="text-white opacity-90 mb-4">Manufacturing plant featuring efficient workflow design and advanced MEP systems.</p>
+                                    <button class="text-white hover:text-secondary font-medium inline-block project-details-btn focus:outline-none" data-project="project3" aria-label="View details of Industrial Facility project">
+                                        View Details <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <span class="project-category">Industrial</span>
+                            </div>
+                            <div class="bg-white p-6 rounded-b-lg">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="text-xl font-bold text-dark">Industrial Facility</h3>
+                                    <span class="text-xs font-medium text-white bg-primary py-1 px-3 rounded-full">Industrial</span>
+                                </div>
+                                <div class="flex items-center text-gray-500 text-sm mb-3">
+                                    <i class="fas fa-map-marker-alt mr-2 text-primary" aria-hidden="true"></i>
+                                    <span>Manchester, UK</span>
+                                </div>
+                                <p class="text-gray-600 mb-4">Manufacturing plant featuring efficient workflow design and advanced MEP systems.</p>
+                                <button class="text-primary hover:text-primary-dark font-medium inline-flex items-center project-details-btn focus:outline-none" data-project="project3" aria-label="View details of Industrial Facility project">
+                                    View Details <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 4 - Residential -->
+                        <div class="project-card stagger-item delay-1" data-category="residential">
+                            <div class="relative overflow-hidden rounded-t-lg">
+                                <img src="https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Luxury Apartments" class="project-image w-full" loading="lazy">
+                                <div class="project-overlay">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Luxury Apartments</h3>
+                                    <p class="text-white opacity-90 mb-4">Multi-unit residential development with high-end finishes and smart home features.</p>
+                                    <button class="text-white hover:text-secondary font-medium inline-block project-details-btn focus:outline-none" data-project="project4" aria-label="View details of Luxury Apartments project">
+                                        View Details <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <span class="project-category">Residential</span>
+                            </div>
+                            <div class="bg-white p-6 rounded-b-lg">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="text-xl font-bold text-dark">Luxury Apartments</h3>
+                                    <span class="text-xs font-medium text-white bg-primary py-1 px-3 rounded-full">Residential</span>
+                                </div>
+                                <div class="flex items-center text-gray-500 text-sm mb-3">
+                                    <i class="fas fa-map-marker-alt mr-2 text-primary" aria-hidden="true"></i>
+                                    <span>Bristol, UK</span>
+                                </div>
+                                <p class="text-gray-600 mb-4">Multi-unit residential development with high-end finishes and smart home features.</p>
+                                <button class="text-primary hover:text-primary-dark font-medium inline-flex items-center project-details-btn focus:outline-none" data-project="project4" aria-label="View details of Luxury Apartments project">
+                                    View Details <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 5 - Commercial -->
+                        <div class="project-card stagger-item delay-2" data-category="commercial">
+                            <div class="relative overflow-hidden rounded-t-lg">
+                                <img src="https://images.unsplash.com/photo-1555636222-cae831e670b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Retail Center" class="project-image w-full" loading="lazy">
+                                <div class="project-overlay">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Retail Center</h3>
+                                    <p class="text-white opacity-90 mb-4">Shopping mall designed to enhance customer experience with innovative lighting.</p>
+                                    <button class="text-white hover:text-secondary font-medium inline-block project-details-btn focus:outline-none" data-project="project5" aria-label="View details of Retail Center project">
+                                        View Details <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <span class="project-category">Commercial</span>
+                            </div>
+                            <div class="bg-white p-6 rounded-b-lg">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="text-xl font-bold text-dark">Retail Center</h3>
+                                    <span class="text-xs font-medium text-white bg-primary py-1 px-3 rounded-full">Commercial</span>
+                                </div>
+                                <div class="flex items-center text-gray-500 text-sm mb-3">
+                                    <i class="fas fa-map-marker-alt mr-2 text-primary" aria-hidden="true"></i>
+                                    <span>Leeds, UK</span>
+                                </div>
+                                <p class="text-gray-600 mb-4">Shopping mall designed to enhance customer experience with innovative lighting.</p>
+                                <button class="text-primary hover:text-primary-dark font-medium inline-flex items-center project-details-btn focus:outline-none" data-project="project5" aria-label="View details of Retail Center project">
+                                    View Details <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 6 - Industrial -->
+                        <div class="project-card stagger-item delay-3" data-category="industrial">
+                            <div class="relative overflow-hidden rounded-t-lg">
+                                <img src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Warehouse Complex" class="project-image w-full" loading="lazy">
+                                <div class="project-overlay">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Warehouse Complex</h3>
+                                    <p class="text-white opacity-90 mb-4">Distribution center with optimized storage solutions and state-of-the-art MEP systems.</p>
+                                    <button class="text-white hover:text-secondary font-medium inline-block project-details-btn focus:outline-none" data-project="project6" aria-label="View details of Warehouse Complex project">
+                                        View Details <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <span class="project-category">Industrial</span>
+                            </div>
+                            <div class="bg-white p-6 rounded-b-lg">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="text-xl font-bold text-dark">Warehouse Complex</h3>
+                                    <span class="text-xs font-medium text-white bg-primary py-1 px-3 rounded-full">Industrial</span>
+                                </div>
+                                <div class="flex items-center text-gray-500 text-sm mb-3">
+                                    <i class="fas fa-map-marker-alt mr-2 text-primary" aria-hidden="true"></i>
+                                    <span>Glasgow, UK</span>
+                                </div>
+                                <p class="text-gray-600 mb-4">Distribution center with optimized storage solutions and state-of-the-art MEP systems.</p>
+                                <button class="text-primary hover:text-primary-dark font-medium inline-flex items-center project-details-btn focus:outline-none" data-project="project6" aria-label="View details of Warehouse Complex project">
+                                    View Details <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Load More Button -->
+                    <div class="text-center mt-12">
+                        <button id="load-more" class="px-8 py-3 bg-white text-primary font-semibold rounded-lg shadow-md hover:bg-primary hover:text-white transition-all duration-300 border-2 border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                            <span class="btn-spinner hidden" aria-hidden="true"></span>
+                            Load More Projects
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Project Details Modal -->
+            <div id="project-modal" class="project-modal">
+                <div class="modal-content bg-white rounded-xl overflow-hidden relative">
+                    <button id="close-modal" class="absolute top-4 right-4 z-50 text-gray-500 hover:text-gray-700 bg-white rounded-full p-2 shadow-lg focus:outline-none focus:ring-2 focus:ring-primary" aria-label="Close modal">
+                        <i class="fas fa-times text-xl" aria-hidden="true"></i>
+                    </button>
+                    <div class="p-8" id="modal-content">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats Section -->
+            <section class="py-16 bg-gradient-to-r from-primary to-primary-dark">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        <div class="text-white animate-slide-up">
+                            <div class="text-4xl md:text-5xl font-bold mb-2"><span class="counter" data-target="15">0</span>+</div>
+                            <div class="text-lg">Years Experience</div>
+                        </div>
+                        <div class="text-white animate-slide-up animate-delay-1">
+                            <div class="text-4xl md:text-5xl font-bold mb-2"><span class="counter" data-target="250">0</span>+</div>
+                            <div class="text-lg">Projects Completed</div>
+                        </div>
+                        <div class="text-white animate-slide-up animate-delay-2">
+                            <div class="text-4xl md:text-5xl font-bold mb-2"><span class="counter" data-target="50">0</span>+</div>
+                            <div class="text-lg">Happy Clients</div>
+                        </div>
+                        <div class="text-white animate-slide-up animate-delay-3">
+                            <div class="text-4xl md:text-5xl font-bold mb-2"><span class="counter" data-target="30">0</span>+</div>
+                            <div class="text-lg">Awards Won</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Testimonials Section -->
+            <section class="py-16 bg-gray-50">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12 animate-fade-in">
+                        <span class="text-primary font-medium mb-2 inline-block">CLIENT FEEDBACK</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4 section-title">What Our Clients Say</h2>
+                        <p class="text-lg text-gray-600 max-w-3xl mx-auto">Hear from our satisfied clients about their experience working with us</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-card p-8 animate-slide-up">
+                            <div class="text-secondary mb-4">
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                            </div>
+                            <p class="text-gray-600 italic mb-6">"Gridline delivered exceptional architectural and MEP design services for our new office building. Their integrated approach ensured all systems worked seamlessly together, and the final result exceeded our expectations."</p>
+                            <div class="flex items-center">
+                                <div class="client-image rounded-full flex-shrink-0 overflow-hidden">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Anderson" class="w-full h-full object-cover" loading="lazy">
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-dark font-semibold">John Anderson</h4>
+                                    <p class="text-gray-500 text-sm">CEO, Anderson Properties</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-card p-8 animate-slide-up animate-delay-1">
+                            <div class="text-secondary mb-4">
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                            </div>
+                            <p class="text-gray-600 italic mb-6">"Working with Gridline on our residential development was a pleasure. Their team provided comprehensive design solutions from architectural concepts to detailed MEP systems, ensuring a smooth and successful project."</p>
+                            <div class="flex items-center">
+                                <div class="client-image rounded-full flex-shrink-0 overflow-hidden">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Williams" class="w-full h-full object-cover" loading="lazy">
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-dark font-semibold">Sarah Williams</h4>
+                                    <p class="text-gray-500 text-sm">Director, Williams Development</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-card p-8 animate-slide-up animate-delay-2">
+                            <div class="text-secondary mb-4">
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                            </div>
+                            <p class="text-gray-600 italic mb-6">"The Gridline team's expertise in both architectural and MEP design was invaluable for our industrial facility project. Their attention to detail and innovative solutions resulted in a highly efficient and functional space."</p>
+                            <div class="flex items-center">
+                                <div class="client-image rounded-full flex-shrink-0 overflow-hidden">
+                                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Michael Roberts" class="w-full h-full object-cover" loading="lazy">
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-dark font-semibold">Michael Roberts</h4>
+                                    <p class="text-gray-500 text-sm">Operations Manager, Roberts Manufacturing</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Call to Action -->
+            <section class="py-16 bg-dark">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-4xl mx-auto text-center">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 animate-slide-up">Ready to Start Your Project?</h2>
+                        <p class="text-xl text-white opacity-90 mb-8 animate-slide-up animate-delay-1">Contact us today to discuss how we can help bring your vision to life</p>
+                        <div class="animate-slide-up animate-delay-2">
+                            <a href="contact.html" class="inline-block px-8 py-4 bg-primary text-white font-semibold rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 mr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                                <i class="fas fa-envelope mr-2" aria-hidden="true"></i> Get a Quote
+                            </a>
+                            <a href="tel:+441211234567" class="inline-block px-8 py-4 bg-white text-dark font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                                <i class="fas fa-phone mr-2" aria-hidden="true"></i> Call Us Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer will be loaded here -->
+        <div id="footer-container"></div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+    
+    <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/2.7.1/lightgallery.min.js"></script>
+    
+    <!-- Component Loader -->
+    <script>
+    // Component Loader Script
+
+    // Load Header Component
+    function loadHeader() {
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+                
+                // Add mobile menu functionality after header is loaded
+                const mobileMenuButton = document.getElementById('mobile-menu-button');
+                const mobileMenu = document.getElementById('mobile-menu');
+                
+                if (mobileMenuButton && mobileMenu) {
+                    mobileMenuButton.addEventListener('click', () => {
+                        mobileMenu.classList.toggle('hidden');
+                        const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                        mobileMenuButton.setAttribute('aria-expanded', !expanded);
+                    });
+                    
+                    // Close mobile menu when clicking on a link
+                    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+                    mobileMenuLinks.forEach(link => {
+                        link.addEventListener('click', () => {
+                            mobileMenu.classList.add('hidden');
+                            mobileMenuButton.setAttribute('aria-expanded', 'false');
+                        });
+                    });
+                }
+            })
+            .catch(error => console.error('Error loading header:', error));
+    }
+
+    // Load Footer Component
+    function loadFooter() {
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+                
+                // Update copyright year after footer is loaded
+                const currentYearElement = document.getElementById('current-year');
+                if (currentYearElement) {
+                    currentYearElement.textContent = new Date().getFullYear();
+                }
+            })
+            .catch(error => console.error('Error loading footer:', error));
+    }
+
+    // Execute when DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        loadHeader();
+        loadFooter();
+        
+        // Hide preloader when page is loaded
+        setTimeout(() => {
+            document.querySelector('.page-loader').style.opacity = '0';
+            document.querySelector('.page-loader').style.visibility = 'hidden';
+        }, 500);
+    });
+    </script>
+    
+    <!-- Portfolio JavaScript -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate stagger items on scroll
+        const staggerItems = document.querySelectorAll('.stagger-item');
+        
+        const animateOnScroll = () => {
+            staggerItems.forEach(item => {
+                const itemPosition = item.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (itemPosition < windowHeight - 100) {
+                    item.classList.add('animate');
+                }
+            });
+        };
+        
+        // Initial check
+        animateOnScroll();
+        
+        // Check on scroll
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // Portfolio Filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active', 'bg-primary', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-700');
+                });
+                
+                // Add active class to clicked button
+                button.classList.add('active', 'bg-primary', 'text-white');
+                button.classList.remove('bg-gray-100', 'text-gray-700');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                // Show/hide projects based on category
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Project Modal Functionality
+        const projectButtons = document.querySelectorAll('.project-details-btn');
+        const modal = document.getElementById('project-modal');
+        const modalContent = document.getElementById('modal-content');
+        const closeModal = document.getElementById('close-modal');
+        
+        // Project details data (normally this would come from a database)
+        const projectData = {
+            project1: {
+                title: 'Modern Residence',
+                category: 'Residential',
+                location: 'London, UK',
+                year: '2022',
+                size: '3,200 sq ft',
+                budget: '£1.2M',
+                description: 'This contemporary family home in London features sustainable materials and energy-efficient design. The project included full architectural design, MEP services, and structural engineering. Our team worked closely with the clients to create a modern yet functional living space that maximizes natural light and minimizes energy consumption.',
+                services: ['Architectural Design', 'MEP Engineering', 'Structural Design', 'Interior Planning', 'Landscape Design'],
+                features: ['Solar panel integration', 'Smart home automation', 'Underfloor heating', 'Natural ventilation system', 'Rainwater harvesting'],
+                images: [
+                    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1600607687644-c7771a5b1d16?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80'
+                ]
+            },
+            project2: {
+                title: 'Office Complex',
+                category: 'Commercial',
+                location: 'Birmingham, UK',
+                year: '2021',
+                size: '45,000 sq ft',
+                budget: '£8.5M',
+                description: 'Modern corporate headquarters in Birmingham with integrated smart building technology and collaborative spaces. The design focused on creating an inspiring work environment that promotes productivity while incorporating sustainable features and cutting-edge MEP systems for optimal comfort and efficiency.',
+                services: ['Architectural Design', 'MEP Engineering', 'Structural Engineering', 'Interior Design', 'Lighting Design'],
+                features: ['LEED Gold certification', 'Automated building management', 'Energy-efficient HVAC', 'Advanced lighting control', 'Green roof system'],
+                images: [
+                    'https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80'
+                ]
+            },
+            project3: {
+                title: 'Industrial Facility',
+                category: 'Industrial',
+                location: 'Manchester, UK',
+                year: '2023',
+                size: '120,000 sq ft',
+                budget: '£15M',
+                description: 'Manufacturing plant in Manchester featuring efficient workflow design, advanced MEP systems, and sustainable features. The facility was designed to optimize production flow while incorporating energy-saving technologies and worker comfort considerations.',
+                services: ['Industrial Architecture', 'MEP Engineering', 'Structural Design', 'Process Engineering', 'Fire Protection'],
+                features: ['High-efficiency lighting', 'Waste heat recovery', 'Automated ventilation', 'Solar-ready infrastructure', 'Water recycling system'],
+                images: [
+                    'https://images.unsplash.com/photo-1500380804539-4e1e8c1e7118?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1605106702734-205df224ecce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80'
+                ]
+            },
+            project4: {
+                title: 'Luxury Apartments',
+                category: 'Residential',
+                location: 'Bristol, UK',
+                year: '2023',
+                size: '85,000 sq ft',
+                budget: '£22M',
+                description: 'High-end residential development featuring premium finishes, smart home technology, and sustainable design elements. The project included 120 luxury apartments with shared amenities and underground parking.',
+                services: ['Architectural Design', 'MEP Engineering', 'Structural Engineering', 'Interior Design', 'Landscape Architecture'],
+                features: ['Smart home automation', 'Green roof system', 'Energy-efficient glazing', 'Centralized HVAC', 'Rainwater harvesting'],
+                images: [
+                    'https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80'
+                ]
+            },
+            project5: {
+                title: 'Retail Center',
+                category: 'Commercial',
+                location: 'Leeds, UK',
+                year: '2022',
+                size: '150,000 sq ft',
+                budget: '£35M',
+                description: 'Modern retail complex featuring innovative lighting design, efficient circulation patterns, and sustainable building systems. The center includes 80 retail units, food court, and entertainment spaces.',
+                services: ['Architectural Design', 'MEP Engineering', 'Structural Engineering', 'Lighting Design', 'Wayfinding Design'],
+                features: ['Dynamic LED lighting', 'Natural ventilation system', 'Solar panel array', 'Water-efficient fixtures', 'Recycled building materials'],
+                images: [
+                    'https://images.unsplash.com/photo-1555636222-cae831e670b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1555529669-a8d0de8225a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80'
+                ]
+            },
+            project6: {
+                title: 'Warehouse Complex',
+                category: 'Industrial',
+                location: 'Glasgow, UK',
+                year: '2021',
+                size: '250,000 sq ft',
+                budget: '£28M',
+                description: 'State-of-the-art distribution center featuring optimized storage solutions, advanced MEP systems, and sustainable design elements. The facility includes office spaces, loading docks, and automated storage systems.',
+                services: ['Industrial Architecture', 'MEP Engineering', 'Structural Engineering', 'Fire Protection', 'Process Engineering'],
+                features: ['High-bay storage system', 'LED lighting with motion sensors', 'Solar panel installation', 'Rainwater collection', 'Waste heat recovery'],
+                images: [
+                    'https://images.unsplash.com/photo-1516937941344-00b4e0337589?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1486401899868-0e435ed85128?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80'
+                ]
+            }
+        };
+        
+        projectButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const projectId = button.getAttribute('data-project');
+                const project = projectData[projectId] || {
+                    title: 'Project Details',
+                    category: 'Sample Category',
+                    location: 'Sample Location',
+                    year: '2023',
+                    size: 'N/A',
+                    budget: 'N/A',
+                    description: 'Detailed information about this project is being updated. Please check back later or contact us for more information about this project.',
+                    services: ['Service 1', 'Service 2'],
+                    features: ['Feature 1', 'Feature 2'],
+                    images: [
+                        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80'
+                    ]
+                };
+                
+                // Build modal content
+                let modalHTML = `
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="gallery-container">
+                            <div class="main-image mb-4 rounded-lg overflow-hidden">
+                                <img src="${project.images[0]}" alt="${project.title}" class="w-full h-auto rounded-lg" loading="lazy">
+                            </div>
+                            ${project.images.length > 1 ? `
+                                <div class="grid grid-cols-3 gap-2 thumbnail-gallery">
+                                    ${project.images.map((img, index) => `
+                                        <div class="gallery-item ${index === 0 ? 'active' : ''}" data-src="${img}">
+                                            <img src="${img}" alt="${project.title} - Image ${index + 1}" class="w-full h-24 object-cover rounded-lg cursor-pointer" loading="lazy">
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-bold text-dark mb-4">${project.title}</h3>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="inline-block bg-primary text-white text-sm px-3 py-1 rounded-full">${project.category}</span>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="text-sm font-semibold text-gray-500 mb-1">Location</h4>
+                                    <p class="text-dark font-medium">${project.location}</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="text-sm font-semibold text-gray-500 mb-1">Year Completed</h4>
+                                    <p class="text-dark font-medium">${project.year}</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="text-sm font-semibold text-gray-500 mb-1">Size</h4>
+                                    <p class="text-dark font-medium">${project.size}</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="text-sm font-semibold text-gray-500 mb-1">Budget</h4>
+                                    <p class="text-dark font-medium">${project.budget}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h4 class="text-lg font-semibold text-dark mb-3">Project Description</h4>
+                                <p class="text-gray-600">${project.description}</p>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-dark mb-3">Services Provided</h4>
+                                    <ul class="space-y-2">
+                                        ${project.services.map(service => `
+                                            <li class="flex items-start">
+                                                <span class="text-primary mr-2 mt-1">•</span>
+                                                <span>${service}</span>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-dark mb-3">Key Features</h4>
+                                    <ul class="space-y-2">
+                                        ${project.features.map(feature => `
+                                            <li class="flex items-start">
+                                                <span class="text-primary mr-2 mt-1">•</span>
+                                                <span>${feature}</span>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-4">
+                                <a href="contact.html" class="px-6 py-3 bg-primary text-white font-medium rounded-lg shadow-md hover:bg-primary-dark transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                                    <i class="fas fa-envelope mr-2" aria-hidden="true"></i> Get a Quote
+                                </a>
+                                <button class="px-6 py-3 border border-primary text-primary font-medium rounded-lg hover:bg-primary/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                                    <i class="fas fa-download mr-2" aria-hidden="true"></i> Download Case Study
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                modalContent.innerHTML = modalHTML;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                
+                // Initialize gallery functionality
+                const mainImage = document.querySelector('.main-image img');
+                const thumbnails = document.querySelectorAll('.thumbnail-gallery .gallery-item');
+                
+                thumbnails.forEach(thumb => {
+                    thumb.addEventListener('click', () => {
+                        // Update active thumbnail
+                        thumbnails.forEach(t => t.classList.remove('active'));
+                        thumb.classList.add('active');
+                        
+                        // Update main image
+                        const newSrc = thumb.getAttribute('data-src');
+                        mainImage.src = newSrc;
+                    });
+                });
+                
+                // Initialize lightGallery
+                lightGallery(document.querySelector('.gallery-container'), {
+                    selector: '.gallery-item',
+                    download: false,
+                    counter: false
+                });
+                
+                // Focus on modal when opened for accessibility
+                modal.querySelector('.modal-content').focus();
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            document.body.style.position = '';
+        });
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                document.body.style.position = '';
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                document.body.style.position = '';
+            }
+        });
+        
+        // Load More Projects functionality
+        const loadMoreBtn = document.getElementById('load-more');
+        
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', () => {
+                const spinner = loadMoreBtn.querySelector('.btn-spinner');
+                spinner.classList.remove('hidden');
+                loadMoreBtn.disabled = true;
+                loadMoreBtn.innerHTML = '<span class="btn-spinner"></span> Loading Projects...';
+                
+                // This would normally load more projects from a server
+                // For demo, we'll simulate loading
+                setTimeout(() => {
+                    spinner.classList.add('hidden');
+                    loadMoreBtn.innerHTML = '<i class="fas fa-check mr-2" aria-hidden="true"></i> All Projects Loaded';
+                    loadMoreBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    loadMoreBtn.disabled = true;
+                }, 1500);
+            });
+        }
+        
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Counter animation for stats
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+        
+        function animateCounters() {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / speed;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+        
+        // Start counter animation when stats section is in view
+        const statsSection = document.querySelector('.bg-gradient-to-r');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+        
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Animate elements on scroll
+        gsap.utils.toArray('.animate-slide-up').forEach(element => {
+            gsap.from(element, {
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                }
+            });
+        });
+        
+        // Hero text animation
+        gsap.from(".hero-portfolio h1", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            delay: 0.3,
+            ease: "power3.out"
+        });
+        
+        gsap.from(".hero-portfolio p", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            delay: 0.5,
+            ease: "power3.out"
+        });
+        
+        gsap.from(".hero-portfolio a", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            delay: 0.7,
+            ease: "power3.out"
+        });
+    });
+    </script>
+</body>
+</html>

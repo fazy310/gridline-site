@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Gridline Architects and MEP Design Consultants</title>
+    <!-- Base Styles -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js" defer></script>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2b6cb0;
+            --accent: #ecc94b;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary);
+        }
+        
+        .bg-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .bg-accent {
+            background-color: var(--accent);
+        }
+        
+        .text-primary {
+            color: var(--primary);
+        }
+        
+        .text-secondary {
+            color: var(--secondary);
+        }
+        
+        .text-accent {
+            color: var(--accent);
+        }
+        
+        .hero-services {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            height: 70vh;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -12px;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--accent);
+            overflow: hidden;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card-image {
+            transition: transform 0.5s ease;
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .service-card:hover .service-card-image img {
+            transform: scale(1.1);
+        }
+        
+        .project-type-card {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .project-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-type-card img {
+            transition: transform 0.5s ease;
+        }
+        
+        .project-type-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .loader-icon {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Animation classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .fade-up.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .fade-right {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .fade-right.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .fade-left {
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .fade-left.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .stagger-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stagger-item.delay-1 { transition-delay: 0.1s; }
+        .stagger-item.delay-2 { transition-delay: 0.2s; }
+        .stagger-item.delay-3 { transition-delay: 0.3s; }
+        .stagger-item.delay-4 { transition-delay: 0.4s; }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-services {
+                height: 60vh;
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-icon"></div>
+    </div>
+
+    <div class="page-wrapper relative bg-white">
+        <!-- Header will be loaded here -->
+        <div id="header-container"></div>
+
+        <!-- Main Content -->
+        <main class="page-content page-transition">
+            <!-- Hero Banner -->
+            <section class="hero-section hero-services relative flex items-center">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-80"></div>
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="max-w-2xl">
+                        <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 hero-content-anim leading-tight">Comprehensive Design Services</h1>
+                        <p class="text-xl text-white opacity-90 mb-8 hero-content-anim">From concept to completion, we deliver integrated architectural and engineering solutions that bring your vision to life.</p>
+                        <div class="flex flex-wrap gap-4 hero-content-anim">
+                            <a href="#our-services" class="px-8 py-3 bg-accent text-primary font-medium rounded-lg shadow-md hover:bg-yellow-400 transition-all duration-300 btn flex items-center">
+                                <i class="fas fa-list-ul mr-2"></i> Explore Services
+                            </a>
+                            <a href="contact.html" class="px-8 py-3 bg-white text-primary font-medium rounded-lg shadow-md hover:bg-gray-100 transition-all duration-300 btn flex items-center">
+                                <i class="fas fa-paper-plane mr-2"></i> Get a Quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 flex justify-center pb-8 z-10">
+                    <a href="#our-services" class="text-white animate-bounce">
+                        <i class="fas fa-chevron-down text-2xl"></i>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Services Introduction -->
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-4xl mx-auto text-center">
+                        <span class="text-accent font-semibold mb-2 inline-block">OUR EXPERTISE</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 section-title inline-block">Integrated Design Solutions</h2>
+                        <p class="text-lg text-gray-600 mt-8">At Gridline, we combine architectural creativity with engineering precision to deliver comprehensive design solutions. Our multidisciplinary approach ensures seamless coordination between all aspects of your project, from initial concept through to construction documentation.</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
+                            <div class="fade-up animation-wrapper">
+                                <div class="text-4xl font-bold text-primary mb-2">150+</div>
+                                <div class="text-gray-600">Projects Completed</div>
+                            </div>
+                            <div class="fade-up animation-wrapper" style="transition-delay: 0.1s">
+                                <div class="text-4xl font-bold text-primary mb-2">25+</div>
+                                <div class="text-gray-600">Years Experience</div>
+                            </div>
+                            <div class="fade-up animation-wrapper" style="transition-delay: 0.2s">
+                                <div class="text-4xl font-bold text-primary mb-2">50+</div>
+                                <div class="text-gray-600">Happy Clients</div>
+                            </div>
+                            <div class="fade-up animation-wrapper" style="transition-delay: 0.3s">
+                                <div class="text-4xl font-bold text-primary mb-2">12</div>
+                                <div class="text-gray-600">Awards Won</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Service Categories -->
+            <section class="py-16 bg-gray-50" id="our-services">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <span class="text-accent font-semibold mb-2 inline-block">WHAT WE OFFER</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 section-title inline-block">Our Comprehensive Services</h2>
+                        <p class="text-lg text-gray-600 max-w-3xl mx-auto mt-6">From architectural design to MEP engineering, we provide complete solutions for your building projects</p>
+                    </div>
+                    
+                    <!-- Architecture Service -->
+                    <div id="architecture" class="mb-16 service-card bg-white rounded-xl shadow-lg overflow-hidden fade-up animation-wrapper">
+                        <div class="md:flex">
+                            <div class="md:w-1/3 service-card-image">
+                                <img src="https://images.unsplash.com/photo-1536895058696-a69b1c7ba34f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Architecture Services" class="w-full h-full object-cover">
+                            </div>
+                            <div class="md:w-2/3 p-8 md:p-10">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-6 shrink-0">
+                                        <i class="fas fa-drafting-compass text-white text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900">Architecture</h3>
+                                </div>
+                                <p class="text-gray-600 mb-6">Our architectural services focus on creating functional, beautiful spaces that meet your specific requirements. From initial concept through to detailed construction drawings, we ensure your vision becomes reality.</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Building Regulations Design</h4>
+                                            <p class="text-gray-600 text-sm">Compliant designs that meet all regulatory requirements</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Extensions & Conversions</h4>
+                                            <p class="text-gray-600 text-sm">Transform and expand your existing spaces</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">New Build Designs</h4>
+                                            <p class="text-gray-600 text-sm">Custom designs for residential and commercial projects</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">3D Visualization</h4>
+                                            <p class="text-gray-600 text-sm">Realistic renderings to visualize your project</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <a href="contact.html" class="inline-block px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded-lg shadow-md hover:opacity-90 transition-all duration-300 btn">
+                                    <i class="fas fa-paper-plane mr-2"></i> Request Architectural Services
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- MEP Design Service -->
+                    <div id="mep" class="mb-16 service-card bg-white rounded-xl shadow-lg overflow-hidden fade-up animation-wrapper">
+                        <div class="md:flex flex-row-reverse">
+                            <div class="md:w-1/3 service-card-image">
+                                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="MEP Design Services" class="w-full h-full object-cover">
+                            </div>
+                            <div class="md:w-2/3 p-8 md:p-10">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-6 shrink-0">
+                                        <i class="fas fa-bolt text-white text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900">MEP Design</h3>
+                                </div>
+                                <p class="text-gray-600 mb-6">Our MEP (Mechanical, Electrical, Plumbing) design services ensure your building's systems work efficiently, sustainably, and in harmony with the architectural design.</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Electrical System Design</h4>
+                                            <p class="text-gray-600 text-sm">Comprehensive electrical planning and design</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Load Assessments</h4>
+                                            <p class="text-gray-600 text-sm">Accurate calculations for optimal system performance</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Genset Sizing</h4>
+                                            <p class="text-gray-600 text-sm">Proper generator selection for backup power</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Lightning Protection</h4>
+                                            <p class="text-gray-600 text-sm">Comprehensive systems for building safety</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <a href="contact.html" class="inline-block px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded-lg shadow-md hover:opacity-90 transition-all duration-300 btn">
+                                    <i class="fas fa-paper-plane mr-2"></i> Request MEP Services
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- HVAC Design Service -->
+                    <div id="hvac" class="mb-16 service-card bg-white rounded-xl shadow-lg overflow-hidden fade-up animation-wrapper">
+                        <div class="md:flex">
+                            <div class="md:w-1/3 service-card-image">
+                                <img src="https://images.unsplash.com/photo-1533635946624-a75de31bdc53?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="HVAC Design Services" class="w-full h-full object-cover">
+                            </div>
+                            <div class="md:w-2/3 p-8 md:p-10">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-6 shrink-0">
+                                        <i class="fas fa-wind text-white text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900">HVAC Design</h3>
+                                </div>
+                                <p class="text-gray-600 mb-6">Our specialized HVAC (Heating, Ventilation, and Air Conditioning) design services ensure optimal indoor climate control, energy efficiency, and air quality for your building.</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Indoor Unit Design</h4>
+                                            <p class="text-gray-600 text-sm">Precise planning for optimal comfort</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Outdoor Unit Sizing</h4>
+                                            <p class="text-gray-600 text-sm">Proper capacity calculations</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Duct Design</h4>
+                                            <p class="text-gray-600 text-sm">Efficient air distribution systems</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">VRF Systems</h4>
+                                            <p class="text-gray-600 text-sm">Advanced multi-split solutions</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <a href="contact.html" class="inline-block px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded-lg shadow-md hover:opacity-90 transition-all duration-300 btn">
+                                    <i class="fas fa-paper-plane mr-2"></i> Request HVAC Services
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Plumbing & Fire Fighting Service -->
+                    <div id="plumbing" class="mb-16 service-card bg-white rounded-xl shadow-lg overflow-hidden fade-up animation-wrapper">
+                        <div class="md:flex flex-row-reverse">
+                            <div class="md:w-1/3 service-card-image">
+                                <img src="https://images.unsplash.com/photo-1574801056283-951d1c81e17c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Plumbing Design Services" class="w-full h-full object-cover">
+                            </div>
+                            <div class="md:w-2/3 p-8 md:p-10">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-6 shrink-0">
+                                        <i class="fas fa-fire-extinguisher text-white text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900">Plumbing & Fire Protection</h3>
+                                </div>
+                                <p class="text-gray-600 mb-6">Our plumbing and fire protection design services ensure efficient water distribution, proper drainage, and comprehensive fire safety systems for your building.</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Water Supply Systems</h4>
+                                            <p class="text-gray-600 text-sm">Hot and cold water distribution</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Sewerage Design</h4>
+                                            <p class="text-gray-600 text-sm">Efficient waste removal systems</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Sprinkler Systems</h4>
+                                            <p class="text-gray-600 text-sm">Automatic fire suppression</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Fire Hydrant Systems</h4>
+                                            <p class="text-gray-600 text-sm">Comprehensive fire protection</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <a href="contact.html" class="inline-block px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded-lg shadow-md hover:opacity-90 transition-all duration-300 btn">
+                                    <i class="fas fa-paper-plane mr-2"></i> Request Plumbing Services
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Structural Design Service -->
+                    <div id="structural" class="mb-16 service-card bg-white rounded-xl shadow-lg overflow-hidden fade-up animation-wrapper">
+                        <div class="md:flex">
+                            <div class="md:w-1/3 service-card-image">
+                                <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Structural Design Services" class="w-full h-full object-cover">
+                            </div>
+                            <div class="md:w-2/3 p-8 md:p-10">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-6 shrink-0">
+                                        <i class="fas fa-building text-white text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900">Structural Design</h3>
+                                </div>
+                                <p class="text-gray-600 mb-6">Our structural engineering services ensure your building is safe, stable, and engineered to withstand all anticipated loads and forces while complementing the architectural design.</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Structural Calculations</h4>
+                                            <p class="text-gray-600 text-sm">Precise engineering analysis</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">3D Modeling</h4>
+                                            <p class="text-gray-600 text-sm">Advanced structural visualization</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Foundation Design</h4>
+                                            <p class="text-gray-600 text-sm">Solid base for your structure</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Seismic Analysis</h4>
+                                            <p class="text-gray-600 text-sm">Earthquake-resistant designs</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <a href="contact.html" class="inline-block px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded-lg shadow-md hover:opacity-90 transition-all duration-300 btn">
+                                    <i class="fas fa-paper-plane mr-2"></i> Request Structural Services
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quantity Surveying Service -->
+                    <div id="quantity" class="mb-16 service-card bg-white rounded-xl shadow-lg overflow-hidden fade-up animation-wrapper">
+                        <div class="md:flex flex-row-reverse">
+                            <div class="md:w-1/3 service-card-image">
+                                <img src="https://images.unsplash.com/photo-1580894908361-967195033215?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Quantity Surveying Services" class="w-full h-full object-cover">
+                            </div>
+                            <div class="md:w-2/3 p-8 md:p-10">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-6 shrink-0">
+                                        <i class="fas fa-calculator text-white text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900">Quantity Surveying</h3>
+                                </div>
+                                <p class="text-gray-600 mb-6">Our quantity surveying services help you understand and control the costs of your project from inception to completion, ensuring you get the best value for your investment.</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Bill of Quantities</h4>
+                                            <p class="text-gray-600 text-sm">Detailed material and labor breakdown</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Cost Estimation</h4>
+                                            <p class="text-gray-600 text-sm">Accurate project budgeting</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Value Engineering</h4>
+                                            <p class="text-gray-600 text-sm">Cost optimization strategies</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-4 shrink-0">
+                                            <i class="fas fa-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-900 mb-1">Contract Administration</h4>
+                                            <p class="text-gray-600 text-sm">Professional contract management</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <a href="contact.html" class="inline-block px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded-lg shadow-md hover:opacity-90 transition-all duration-300 btn">
+                                    <i class="fas fa-paper-plane mr-2"></i> Request QS Services
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Project Types Section -->
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <span class="text-accent font-semibold mb-2 inline-block">OUR PORTFOLIO</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 section-title inline-block">Project Types We Specialize In</h2>
+                        <p class="text-lg text-gray-600 max-w-3xl mx-auto mt-6">Our expertise spans across various sectors of the construction industry</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Residential -->
+                        <div class="project-type-card bg-white rounded-xl shadow-lg overflow-hidden stagger-item delay-1">
+                            <div class="relative h-64 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Residential Projects" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                                <div class="absolute bottom-0 left-0 p-6">
+                                    <h3 class="text-2xl font-bold text-white">Residential</h3>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <p class="text-gray-600 mb-4">From single-family homes to multi-unit developments, we provide comprehensive design services for residential projects of all sizes.</p>
+                                <ul class="text-gray-600 space-y-2">
+                                    <li class="flex items-start"><span class="text-primary mr-2">•</span> Single Family Homes</li>
+                                    <li class="flex items-start"><span class="text-primary mr-2">•</span> Multi-Unit Developments</li>
+                                    <li class="flex items-start"><span class="text-primary mr-2">•</span> Custom Home Designs</li>
+                                    <li class="flex items-start"><span class="text-primary mr-2">•</span> Apartment Complexes</li>
+                                </ul>
+                                <a href="#" class="inline-block mt-4 text-primary font-medium hover:underline">View Residential Projects →</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Commercial -->
+                        <div class="project-type-card bg-white rounded-xl shadow-lg overflow-hidden stagger-item delay-2">
+                            <div class="relative h-64 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Commercial Projects" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                                <div class="absolute bottom-0 left-0 p-6">
+                                    <h3 class="text-2xl font-bold text-white">Commercial</h3>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <p class="text-gray-600 mb-4">Our commercial design services help businesses create functional, attractive spaces that enhance productivity and customer experience.</p>
+                                <ul class="text-gray-600 space-y-2">
+                                    <li class="flex items-start"><span class="text-primary mr-2">•</span> Office Buildings</li>
+                                    <li class="flex items-start"><span class="text-primary mr-2">•</span> Retail Spaces</li>
+                                    <li class="flex items-start"><span class="text-primary mr-2">•</span> Hospitality Projects</li>
+                                    <li class="flex items-start"><span class="text-primary mr-2">•</span> Mixed-Use Developments</li>
+                                </ul>
+                                <a href="#" class="inline-block mt-4 text-primary font-medium hover:underline">View Commercial Projects →</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Industrial -->
+                        <div class="project-type-card bg-white rounded-xl shadow-lg overflow-hidden stagger-item delay-3">
+                            <div class="relative h-64 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Industrial Projects" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                                <div class="absolute bottom-0 left-0 p-6">
+                                    <h3 class="text-2xl font-bold text-white">Industrial</h3>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <p class="text-gray-600 mb-4">Our industrial design solutions focus on efficiency, safety, and functionality for manufacturing and logistics facilities.</p>
+                                <ul class="text-gray-600 space-y-2">
+                                    <li class="flex items-start"><span class="text-primary mr-2">•</span> Warehouses</li>
+                                    <li class="flex items-start"><span class="text-primary mr-2">•</span> Manufacturing Facilities</li>
+                                    <li class="flex items-start"><span class="text-primary mr-2">•</span> Industrial Complexes</li>
+                                    <li class="flex items-start"><span class="text-primary mr-2">•</span> Logistics Centers</li>
+                                </ul>
+                                <a href="#" class="inline-block mt-4 text-primary font-medium hover:underline">View Industrial Projects →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Testimonials Section -->
+            <section class="py-16 bg-gray-50">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <span class="text-accent font-semibold mb-2 inline-block">CLIENT TESTIMONIALS</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 section-title inline-block">What Our Clients Say</h2>
+                        <p class="text-lg text-gray-600 max-w-3xl mx-auto mt-6">Don't just take our word for it - hear from some of our satisfied clients</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Testimonial 1 -->
+                        <div class="bg-white p-8 rounded-xl shadow-md fade-up animation-wrapper">
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400 text-xl mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-6 italic">"Gridline transformed our outdated office space into a modern, functional workplace that our employees love. Their attention to detail and creative solutions exceeded our expectations."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="David Wilson" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">David Wilson</h4>
+                                    <p class="text-gray-500 text-sm">CEO, TechSolutions Ltd</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 2 -->
+                        <div class="bg-white p-8 rounded-xl shadow-md fade-up animation-wrapper" style="transition-delay: 0.1s">
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400 text-xl mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-6 italic">"The MEP design provided by Gridline was exceptional. They delivered energy-efficient solutions that reduced our operational costs by 30% while maintaining optimal performance."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">Sarah Johnson</h4>
+                                    <p class="text-gray-500 text-sm">Facilities Manager, UrbanLiving</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 3 -->
+                        <div class="bg-white p-8 rounded-xl shadow-md fade-up animation-wrapper" style="transition-delay: 0.2s">
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400 text-xl mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-6 italic">"Working with Gridline on our restaurant project was a pleasure. They understood our vision perfectly and created a space that's both beautiful and highly functional for our staff and customers."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Michael Chen" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">Michael Chen</h4>
+                                    <p class="text-gray-500 text-sm">Owner, East & West Bistro</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Call to Action -->
+            <section class="py-20 bg-gradient-to-r from-primary to-secondary">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-4xl mx-auto text-center">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 fade-up animation-wrapper">Ready to Start Your Project?</h2>
+                        <p class="text-xl text-white opacity-90 mb-8 fade-up animation-wrapper">Contact us today to discuss how we can help bring your vision to life with our integrated design expertise.</p>
+                        <div class="flex flex-wrap justify-center gap-4 fade-up animation-wrapper">
+                            <a href="contact.html" class="px-8 py-4 bg-white text-primary font-medium rounded-lg shadow-xl hover:bg-gray-100 transition-all duration-300 btn flex items-center">
+                                <i class="fas fa-paper-plane mr-2"></i> Get in Touch
+                            </a>
+                            <a href="tel:+441211234567" class="px-8 py-4 bg-accent text-primary font-medium rounded-lg shadow-xl hover:bg-yellow-400 transition-all duration-300 btn flex items-center">
+                                <i class="fas fa-phone mr-2"></i> Call Us Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer will be loaded here -->
+        <div id="footer-container"></div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Component Loader -->
+    <script>
+    // Component Loader Script
+
+    // Load Header Component
+    function loadHeader() {
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+                
+                // Add mobile menu functionality after header is loaded
+                const mobileMenuButton = document.getElementById('mobile-menu-button');
+                const mobileMenu = document.getElementById('mobile-menu');
+                
+                if (mobileMenuButton && mobileMenu) {
+                    mobileMenuButton.addEventListener('click', () => {
+                        mobileMenu.classList.toggle('hidden');
+                    });
+                    
+                    // Close mobile menu when clicking on a link
+                    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+                    mobileMenuLinks.forEach(link => {
+                        link.addEventListener('click', () => {
+                            mobileMenu.classList.add('hidden');
+                        });
+                    });
+                }
+            })
+            .catch(error => console.error('Error loading header:', error));
+    }
+
+    // Load Footer Component
+    function loadFooter() {
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+                
+                // Update copyright year after footer is loaded
+                const currentYearElement = document.getElementById('current-year');
+                if (currentYearElement) {
+                    currentYearElement.textContent = new Date().getFullYear();
+                }
+            })
+            .catch(error => console.error('Error loading footer:', error));
+    }
+
+    // Execute when DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        loadHeader();
+        loadFooter();
+        
+        // Hide loader when page is loaded
+        setTimeout(() => {
+            document.querySelector('.page-loader').style.display = 'none';
+        }, 1000);
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.fade-up, .fade-right, .fade-left, .stagger-item');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.classList.add('animate');
+                }
+            });
+        };
+        
+        // Initial check
+        animateOnScroll();
+        
+        // Check on scroll
+        window.addEventListener('scroll', animateOnScroll);
+    });
+    </script>
+    
+    <!-- Main JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <!-- Animation JavaScript -->
+    <script src="assets/js/animations.js"></script>
+</body>
+</html>
