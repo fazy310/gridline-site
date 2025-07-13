@@ -416,70 +416,87 @@
                                         <p class="text-sm">Please try again or contact us directly at info@gridlinedesigns.com</p>
                                     </div>
                                 </div>
+<form action="https://formsubmit.co/contact@glinedesigns.com" method="POST" id="contact-form" class="space-y-6">
+    <!-- FormSubmit hidden inputs -->
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_subject" value="New Consultation Request from Website">
+    <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html"> <!-- Optional: customize -->
+
+    <!-- Name & Email -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name*</label>
+            <input type="text" id="name" name="name" required class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary">
+        </div>
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address*</label>
+            <input type="email" id="email" name="email" required class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary">
+        </div>
+    </div>
+
+    <!-- Phone & Company -->
+    <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+        <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary">
+    </div>
+    <div>
+        <label for="company" class="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+        <input type="text" id="company" name="company" class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary">
+    </div>
+
+    <!-- Service Required -->
+    <div>
+        <label for="service" class="block text-sm font-medium text-gray-700 mb-1">Service Required*</label>
+        <select id="service" name="service" required class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary">
+            <option value="">Select a service</option>
+            <option value="architecture">Architecture Design</option>
+            <option value="mep">MEP Engineering</option>
+            <option value="hvac">HVAC Design</option>
+            <option value="plumbing">Plumbing & Fire Protection</option>
+            <option value="structural">Structural Engineering</option>
+            <option value="surveying">Quantity Surveying</option>
+            <option value="interior">Interior Design</option>
+            <option value="other">Other Services</option>
+        </select>
+    </div>
+
+    <!-- Budget -->
+    <div>
+        <label for="budget" class="block text-sm font-medium text-gray-700 mb-1">Project Budget</label>
+        <select id="budget" name="budget" class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary">
+            <option value="">Select budget range</option>
+            <option value="50k">Under £50,000</option>
+            <option value="50-100k">£50,000 - £100,000</option>
+            <option value="100-500k">£100,000 - £500,000</option>
+            <option value="500k-1m">£500,000 - £1M</option>
+            <option value="1m+">Over £1M</option>
+        </select>
+    </div>
+
+    <!-- Message -->
+    <div>
+        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Project Details*</label>
+        <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary" placeholder="Tell us about your project..."></textarea>
+    </div>
+
+    <!-- Consent -->
+    <div class="flex items-center">
+        <input type="checkbox" id="consent" name="consent" required class="h-4 w-4 text-secondary focus:ring-secondary border-gray-300 rounded">
+        <label for="consent" class="ml-2 block text-sm text-gray-700">
+            I agree to Gridline's <a href="/terms.html" class="text-secondary hover:underline" target="_blank">Privacy Policy</a> and consent to my data being processed.
+        </label>
+    </div>
+
+    <!-- Submit Button -->
+    <div>
+        <button type="submit" class="w-full px-6 py-4 btn-primary text-lg font-medium btn">
+            Request Consultation
+        </button>
+    </div>
+</form>
                                 
-                                <form id="contact-form" class="space-y-6">
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div>
-                                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name*</label>
-                                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary">
-                                        </div>
-                                        <div>
-                                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address*</label>
-                                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary">
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                                        <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary">
-                                    </div>
-                                    <div>
-                                        <label for="company" class="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
-                                        <input type="text" id="company" name="company" class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary">
-                                    </div>
-                                    <div>
-                                        <label for="service" class="block text-sm font-medium text-gray-700 mb-1">Service Required*</label>
-                                        <select id="service" name="service" required class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary">
-                                            <option value="">Select a service</option>
-                                            <option value="architecture">Architecture Design</option>
-                                            <option value="mep">MEP Engineering</option>
-                                            <option value="hvac">HVAC Design</option>
-                                            <option value="plumbing">Plumbing & Fire Protection</option>
-                                            <option value="structural">Structural Engineering</option>
-                                            <option value="surveying">Quantity Surveying</option>
-                                            <option value="interior">Interior Design</option>
-                                            <option value="other">Other Services</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label for="budget" class="block text-sm font-medium text-gray-700 mb-1">Project Budget</label>
-                                        <select id="budget" name="budget" class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary">
-                                            <option value="">Select budget range</option>
-                                            <option value="50k">Under £50,000</option>
-                                            <option value="50-100k">£50,000 - £100,000</option>
-                                            <option value="100-500k">£100,000 - £500,000</option>
-                                            <option value="500k-1m">£500,000 - £1M</option>
-                                            <option value="1m+">Over £1M</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Project Details*</label>
-                                        <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 form-input focus:ring-2 focus:ring-secondary" placeholder="Tell us about your project..."></textarea>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input type="checkbox" id="consent" name="consent" required class="h-4 w-4 text-secondary focus:ring-secondary border-gray-300 rounded">
-                                        <label for="consent" class="ml-2 block text-sm text-gray-700">
-                                            I agree to Gridline's <a href="#" class="text-secondary hover:underline">Privacy Policy</a> and consent to my data being processed.
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <button type="submit" class="w-full px-6 py-4 btn-primary text-lg font-medium btn">
-                                            <span id="submit-text">Request Consultation</span>
-                                            <span id="loading-spinner" class="hidden">
-                                                <i class="fas fa-spinner fa-spin mr-2"></i> Processing...
-                                            </span>
-                                        </button>
-                                    </div>
-                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -843,36 +860,7 @@
         const formSuccess = document.getElementById('form-success');
         const formError = document.getElementById('form-error');
         
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                
-                // Show loading spinner
-                submitText.classList.add('hidden');
-                loadingSpinner.classList.remove('hidden');
-                
-                // Hide any previous messages
-                formSuccess.classList.add('hidden');
-                formError.classList.add('hidden');
-                
-                // Simulate form submission (normally this would be an actual API call)
-                setTimeout(() => {
-                    // Hide loading spinner
-                    submitText.classList.remove('hidden');
-                    loadingSpinner.classList.add('hidden');
-                    
-                    // Show success message
-                    formSuccess.classList.remove('hidden');
-                    
-                    // Reset form
-                    contactForm.reset();
-                    
-                    // Scroll to success message
-                    formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 1500);
-            });
-        }
-        
+
         // Back to top button
         const backToTopButton = document.getElementById('back-to-top');
         
