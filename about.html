@@ -72,7 +72,22 @@
             background: linear-gradient(90deg, var(--primary), var(--accent));
             border-radius: 2px;
         }
-        
+        .nav-link.active {
+    font-weight: 600;
+    color: var(--primary);
+    position: relative;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary);
+}
+
         .hero-about {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
             height: 70vh;
@@ -616,62 +631,123 @@
     <!-- Component Loader -->
     <script>
     // Component Loader Script
-    function loadHeader() {
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-                
-                // Add mobile menu functionality after header is loaded
-                const mobileMenuButton = document.getElementById('mobile-menu-button');
-                const mobileMenu = document.getElementById('mobile-menu');
-                
-                if (mobileMenuButton && mobileMenu) {
-                    mobileMenuButton.addEventListener('click', () => {
-                        mobileMenu.classList.toggle('hidden');
-                    });
-                    
-                    // Close mobile menu when clicking on a link
-                    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-                    mobileMenuLinks.forEach(link => {
-                        link.addEventListener('click', () => {
-                            mobileMenu.classList.add('hidden');
-                        });
-                    });
-                }
-            })
-            .catch(error => console.error('Error loading header:', error));
+function setActiveNavigation() {
+    // Get current page filename
+    let currentPage = window.location.pathname.split('/').pop();
+    
+    // Handle root path and index variations
+    if (currentPage === '' || currentPage === 'index.html') {
+        currentPage = 'home';
+    } else {
+        // Remove .html extension to match data-page attributes
+        currentPage = currentPage.replace('.html', '');
     }
+    
+    console.log('Current page:', currentPage); // Debug log
+    
+    // Remove active class from all nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // Add active class to current page nav links
+    document.querySelectorAll(`[data-page="${currentPage}"]`).forEach(link => {
+        link.classList.add('active');
+        console.log('Added active class to:', link); // Debug log
+    });
+}
 
-    // Load Footer Component
-    function loadFooter() {
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-                
-                // Update copyright year after footer is loaded
-                const currentYearElement = document.getElementById('current-year');
-                if (currentYearElement) {
-                    currentYearElement.textContent = new Date().getFullYear();
-                }
-            })
-            .catch(error => console.error('Error loading footer:', error));
+// Component Loader Script
+function loadHeader() {
+    fetch('header.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+            
+            // Wait a bit for DOM to update, then set active navigation
+            setTimeout(() => {
+                setActiveNavigation();
+                initializeMobileMenu();
+            }, 100);
+        })
+        .catch(error => {
+            console.error('Error loading header:', error);
+            // Fallback: try to set active navigation anyway
+            setTimeout(setActiveNavigation, 500);
+        });
+}
+
+// Initialize mobile menu functionality
+function initializeMobileMenu() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuButton && mobileMenu) {
+        // Remove any existing event listeners
+        mobileMenuButton.replaceWith(mobileMenuButton.cloneNode(true));
+        const newMobileMenuButton = document.getElementById('mobile-menu-button');
+        
+        newMobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !newMobileMenuButton.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
     }
+}
 
-    // Execute when DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        loadHeader();
-        loadFooter();
-        
-        // Hide loader when page is loaded
-        setTimeout(() => {
-            document.querySelector('.page-loader').style.display = 'none';
-        }, 1000);
-        
-        // Back to top button
-        const backToTopButton = document.getElementById('back-to-top');
-        
+// Load Footer Component
+function loadFooter() {
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer-container').innerHTML = data;
+            
+            // Update copyright year after footer is loaded
+            const currentYearElement = document.getElementById('current-year');
+            if (currentYearElement) {
+                currentYearElement.textContent = new Date().getFullYear();
+            }
+        })
+        .catch(error => console.error('Error loading footer:', error));
+}
+
+// Execute when DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing components...'); // Debug log
+    
+    loadHeader();
+    loadFooter();
+    
+    // Hide loader when page is loaded
+    setTimeout(() => {
+        const loader = document.querySelector('.page-loader');
+        if (loader) {
+            loader.style.display = 'none';
+        }
+    }, 1000);
+    
+    // Back to top button functionality
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    if (backToTopButton) {
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
                 backToTopButton.classList.add('active');
@@ -686,27 +762,36 @@
                 behavior: 'smooth'
             });
         });
+    }
+    
+    // Animation on scroll
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.fade-up, .fade-right, .fade-left, .stagger-item');
         
-        // Animation on scroll
-        const animateOnScroll = () => {
-            const elements = document.querySelectorAll('.fade-up, .fade-right, .fade-left, .stagger-item');
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
             
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementPosition < windowHeight - 100) {
-                    element.classList.add('animate');
-                }
-            });
-        };
-        
-        // Initial check
-        animateOnScroll();
-        
-        // Check on scroll
-        window.addEventListener('scroll', animateOnScroll);
-    });
+            if (elementPosition < windowHeight - 100) {
+                element.classList.add('animate');
+            }
+        });
+    };
+    
+    // Initial check for animations
+    animateOnScroll();
+    
+    // Check on scroll
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // Fallback: Set active navigation after a delay if header is loaded
+    setTimeout(() => {
+        if (document.querySelector('.nav-link')) {
+            setActiveNavigation();
+        }
+    }, 2000);
+});
+    // Set active nav link based on current URL or hash
     </script>
     
     <!-- Main JavaScript -->
@@ -717,5 +802,6 @@
     <a href="https://wa.me/+447375097407" target="_blank" aria-label="Chat on WhatsApp" class="fixed bottom-24 right-8 z-50 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg flex items-center justify-center">
     <i class="fab fa-whatsapp fa-lg"></i>
 </a>
+
 </body>
 </html>

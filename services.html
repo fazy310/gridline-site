@@ -76,7 +76,22 @@
             background: linear-gradient(90deg, var(--primary), var(--accent));
             border-radius: 2px;
         }
-        
+        .nav-link.active {
+    font-weight: 600;
+    color: var(--primary);
+    position: relative;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary);
+}
+
         .service-card {
             transition: all 0.3s ease;
             border-top: 4px solid var(--accent);
@@ -367,7 +382,7 @@
                     <div id="mep" class="mb-16 service-card bg-white rounded-xl shadow-lg overflow-hidden fade-up animation-wrapper">
                         <div class="md:flex flex-row-reverse">
                             <div class="md:w-1/3 service-card-image">
-                                <img src="/images/MEP_2.png" alt="MEP Design Services" class="w-full h-full object-cover">
+                                <img src="images/MEP_2.png" alt="MEP Design Services" class="w-full h-full object-cover">
                             </div>
                             <div class="md:w-2/3 p-8 md:p-10">
                                 <div class="flex items-center mb-6">
@@ -428,7 +443,7 @@
                     <div id="hvac" class="mb-16 service-card bg-white rounded-xl shadow-lg overflow-hidden fade-up animation-wrapper">
                         <div class="md:flex">
                             <div class="md:w-1/3 service-card-image">
-                                <img src="/images/hvac_plant.png" alt="HVAC Design Services" class="w-full h-full object-cover">
+                                <img src="images/hvac_plant.png" alt="HVAC Design Services" class="w-full h-full object-cover">
                             </div>
                             <div class="md:w-2/3 p-8 md:p-10">
                                 <div class="flex items-center mb-6">
@@ -489,7 +504,7 @@
                     <div id="plumbing" class="mb-16 service-card bg-white rounded-xl shadow-lg overflow-hidden fade-up animation-wrapper">
                         <div class="md:flex flex-row-reverse">
                             <div class="md:w-1/3 service-card-image">
-                                <img src="/images/plumbing.png" alt="Plumbing Design Services" class="w-full h-full object-cover">
+                                <img src="images/plumbing.png" alt="Plumbing Design Services" class="w-full h-full object-cover">
                             </div>
                             <div class="md:w-2/3 p-8 md:p-10">
                                 <div class="flex items-center mb-6">
@@ -611,7 +626,7 @@
                     <div id="quantity" class="mb-16 service-card bg-white rounded-xl shadow-lg overflow-hidden fade-up animation-wrapper">
                         <div class="md:flex flex-row-reverse">
                             <div class="md:w-1/3 service-card-image">
-                                <img src="/images/survey.png" alt="Quantity Surveying Services" class="w-full h-full object-cover">
+                                <img src="images/survey.png" alt="Quantity Surveying Services" class="w-full h-full object-cover">
                             </div>
                             <div class="md:w-2/3 p-8 md:p-10">
                                 <div class="flex items-center mb-6">
@@ -859,64 +874,124 @@
     <!-- Component Loader -->
     <script>
     // Component Loader Script
-
     // Load Header Component
-    function loadHeader() {
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-                
-                // Add mobile menu functionality after header is loaded
-                const mobileMenuButton = document.getElementById('mobile-menu-button');
-                const mobileMenu = document.getElementById('mobile-menu');
-                
-                if (mobileMenuButton && mobileMenu) {
-                    mobileMenuButton.addEventListener('click', () => {
-                        mobileMenu.classList.toggle('hidden');
-                    });
-                    
-                    // Close mobile menu when clicking on a link
-                    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-                    mobileMenuLinks.forEach(link => {
-                        link.addEventListener('click', () => {
-                            mobileMenu.classList.add('hidden');
-                        });
-                    });
-                }
-            })
-            .catch(error => console.error('Error loading header:', error));
+function setActiveNavigation() {
+    // Get current page filename
+    let currentPage = window.location.pathname.split('/').pop();
+    
+    // Handle root path and index variations
+    if (currentPage === '' || currentPage === 'index.html') {
+        currentPage = 'home';
+    } else {
+        // Remove .html extension to match data-page attributes
+        currentPage = currentPage.replace('.html', '');
     }
+    
+    console.log('Current page:', currentPage); // Debug log
+    
+    // Remove active class from all nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // Add active class to current page nav links
+    document.querySelectorAll(`[data-page="${currentPage}"]`).forEach(link => {
+        link.classList.add('active');
+        console.log('Added active class to:', link); // Debug log
+    });
+}
 
-    // Load Footer Component
-    function loadFooter() {
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-                
-                // Update copyright year after footer is loaded
-                const currentYearElement = document.getElementById('current-year');
-                if (currentYearElement) {
-                    currentYearElement.textContent = new Date().getFullYear();
-                }
-            })
-            .catch(error => console.error('Error loading footer:', error));
+// Component Loader Script
+function loadHeader() {
+    fetch('header.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+            
+            // Wait a bit for DOM to update, then set active navigation
+            setTimeout(() => {
+                setActiveNavigation();
+                initializeMobileMenu();
+            }, 100);
+        })
+        .catch(error => {
+            console.error('Error loading header:', error);
+            // Fallback: try to set active navigation anyway
+            setTimeout(setActiveNavigation, 500);
+        });
+}
+
+// Initialize mobile menu functionality
+function initializeMobileMenu() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuButton && mobileMenu) {
+        // Remove any existing event listeners
+        mobileMenuButton.replaceWith(mobileMenuButton.cloneNode(true));
+        const newMobileMenuButton = document.getElementById('mobile-menu-button');
+        
+        newMobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !newMobileMenuButton.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
     }
+}
 
-    // Execute when DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        loadHeader();
-        loadFooter();
-        
-        // Hide loader when page is loaded
-        setTimeout(() => {
-            document.querySelector('.page-loader').style.display = 'none';
-        }, 1000);
-        
-        // Back to top button
-        const backToTopButton = document.getElementById('back-to-top');
-        
+// Load Footer Component
+function loadFooter() {
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer-container').innerHTML = data;
+            
+            // Update copyright year after footer is loaded
+            const currentYearElement = document.getElementById('current-year');
+            if (currentYearElement) {
+                currentYearElement.textContent = new Date().getFullYear();
+            }
+        })
+        .catch(error => console.error('Error loading footer:', error));
+}
+
+// Execute when DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing components...'); // Debug log
+    
+    loadHeader();
+    loadFooter();
+    
+    // Hide loader when page is loaded
+    setTimeout(() => {
+        const loader = document.querySelector('.page-loader');
+        if (loader) {
+            loader.style.display = 'none';
+        }
+    }, 1000);
+    
+    // Back to top button functionality
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    if (backToTopButton) {
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
                 backToTopButton.classList.add('active');
@@ -931,27 +1006,35 @@
                 behavior: 'smooth'
             });
         });
+    }
+    
+    // Animation on scroll
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.fade-up, .fade-right, .fade-left, .stagger-item');
         
-        // Animation on scroll
-        const animateOnScroll = () => {
-            const elements = document.querySelectorAll('.fade-up, .fade-right, .fade-left, .stagger-item');
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
             
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementPosition < windowHeight - 100) {
-                    element.classList.add('animate');
-                }
-            });
-        };
-        
-        // Initial check
-        animateOnScroll();
-        
-        // Check on scroll
-        window.addEventListener('scroll', animateOnScroll);
-    });
+            if (elementPosition < windowHeight - 100) {
+                element.classList.add('animate');
+            }
+        });
+    };
+    
+    // Initial check for animations
+    animateOnScroll();
+    
+    // Check on scroll
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // Fallback: Set active navigation after a delay if header is loaded
+    setTimeout(() => {
+        if (document.querySelector('.nav-link')) {
+            setActiveNavigation();
+        }
+    }, 2000);
+});
     </script>
     
     <!-- Main JavaScript -->

@@ -71,7 +71,22 @@
             background: linear-gradient(90deg, var(--primary), var(--accent));
             border-radius: 2px;
         }
-        
+        .nav-link.active {
+    font-weight: 600;
+    color: var(--primary);
+    position: relative;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary);
+}
+
         .hero-contact {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
             height: 70vh;
@@ -336,7 +351,7 @@
                                         <i class="fas fa-map-marker-alt"></i>
                                     </div>
                                     <h4 class="font-semibold text-gray-900 mb-2 text-lg">Our Office</h4>
-                                    <p class="text-gray-600">123 Design Street<br>Creative District<br>Birmingham, UK B1 1AB</p>
+                                    <p class="text-gray-600">7 Barnwood Close<br>Mickleover<br>Derby DE3 0QY</p>
                                 </div>
                                 
                                 <!-- Phone -->
@@ -504,40 +519,18 @@
             </section>
 
             <!-- Map Section -->
-            <section class="py-12 bg-white">
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2429.581371380668!2d-1.8998792!3d52.4827979!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4870bc8a2a23ab5b%3A0x45fb02e7a28b3d4b!2sBirmingham%2C%20UK!5e0!3m2!1sen!2sus!4v1682348231999!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-                        <div class="bg-primary text-white p-8 rounded-xl shadow-lg fade-up animation-wrapper">
-                            <div class="text-4xl mb-4">
-                                <i class="fas fa-building"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3">Office Visit</h3>
-                            <p class="text-white opacity-90">Schedule a visit to our studio to see our work and discuss your project in person.</p>
-                        </div>
-                        
-                        <div class="bg-secondary text-white p-8 rounded-xl shadow-lg fade-up animation-wrapper" style="transition-delay: 0.1s">
-                            <div class="text-4xl mb-4">
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3">Book a Meeting</h3>
-                            <p class="text-white opacity-90">Schedule a virtual or in-person consultation with one of our experts.</p>
-                        </div>
-                        
-                        <div class="bg-accent text-primary p-8 rounded-xl shadow-lg fade-up animation-wrapper" style="transition-delay: 0.2s">
-                            <div class="text-4xl mb-4">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3">Request Proposal</h3>
-                            <p class="text-primary opacity-90">Get a detailed proposal tailored to your specific project requirements.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
+<!-- Map Section -->
+<section class="h-96 bg-gray-100">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2429.0!2d-1.5449!3d52.9041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDU0JzE0LjgiTiAxwrAzMic0MS42Ilc!5e0!3m2!1sen!2suk!4v1684320000000!5m2!1sen!2suk&q=7+Barnwood+Close,+Mickleover,+Derby+DE3+0QY,+UK" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Gridline Architects Office Location - 7 Barnwood Close, Mickleover, Derby DE3 0QY">
+    </iframe>
+</section>
             <!-- Testimonials Section -->
             <section class="py-16 bg-gray-900 text-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -648,8 +641,6 @@
                             <div class="faq-answer px-6 pb-4 hidden bg-white">
                                 <p class="text-gray-600 py-4">The timeline varies depending on the project size and complexity. Here's a general guideline:</p>
                                 <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600">
-                                    <li>Small residential projects: 4-6 weeks</li>
-                                    <li>Medium commercial projects: 8-12 weeks</li>
                                     <li>Large commercial/industrial projects: 3-6 months</li>
                                     <li>Master planning projects: 6+ months</li>
                                 </ul>
@@ -667,31 +658,11 @@
                                 <p class="text-gray-600 py-4">To provide an accurate quote, we typically need:</p>
                                 <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600">
                                     <li>Project location and type (residential, commercial, etc.)</li>
-                                    <li>Approximate size (square meters/floors)</li>
                                     <li>Scope of services required (concept design, full design, etc.)</li>
                                     <li>Any specific requirements or constraints</li>
-                                    <li>Your timeline and budget expectations</li>
+                                    <li>CAD drawings, CAD models, drawing packs, and all available relevant information</li>
                                 </ul>
                                 <p class="text-gray-600 mt-3">Initial sketches or existing drawings are helpful but not essential. We can discuss your project in detail during our initial consultation.</p>
-                            </div>
-                        </div>
-                        
-                        <!-- FAQ Item 4 -->
-                        <div class="faq-item mb-4 fade-up animation-wrapper" style="transition-delay: 0.3s">
-                            <button class="faq-button w-full px-6 py-4 text-left font-semibold text-gray-900 flex justify-between items-center bg-gray-50">
-                                <span class="text-lg">Do you handle planning applications?</span>
-                                <i class="fas fa-plus text-primary transition-transform duration-300"></i>
-                            </button>
-                            <div class="faq-answer px-6 pb-4 hidden bg-white">
-                                <p class="text-gray-600 py-4">Yes, we offer comprehensive planning application services including:</p>
-                                <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600">
-                                    <li>Preparation and submission of planning applications</li>
-                                    <li>Pre-application advice and consultations</li>
-                                    <li>Design statements and access statements</li>
-                                    <li>Heritage and conservation area applications</li>
-                                    <li>Planning appeals when necessary</li>
-                                </ul>
-                                <p class="text-gray-600 mt-3">Our team is experienced in navigating the planning process and creating designs that meet local planning requirements while still achieving your goals.</p>
                             </div>
                         </div>
                         
@@ -768,102 +739,123 @@
     <script>
     // Component Loader Script
 
-    function loadHeader() {
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-                
-                // Add mobile menu functionality after header is loaded
-                const mobileMenuButton = document.getElementById('mobile-menu-button');
-                const mobileMenu = document.getElementById('mobile-menu');
-                
-                if (mobileMenuButton && mobileMenu) {
-                    mobileMenuButton.addEventListener('click', () => {
-                        mobileMenu.classList.toggle('hidden');
-                    });
-                    
-                    // Close mobile menu when clicking on a link
-                    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-                    mobileMenuLinks.forEach(link => {
-                        link.addEventListener('click', () => {
-                            mobileMenu.classList.add('hidden');
-                        });
-                    });
-                }
-            })
-            .catch(error => console.error('Error loading header:', error));
+function setActiveNavigation() {
+    // Get current page filename
+    let currentPage = window.location.pathname.split('/').pop();
+    
+    // Handle root path and index variations
+    if (currentPage === '' || currentPage === 'index.html') {
+        currentPage = 'home';
+    } else {
+        // Remove .html extension to match data-page attributes
+        currentPage = currentPage.replace('.html', '');
     }
+    
+    console.log('Current page:', currentPage); // Debug log
+    
+    // Remove active class from all nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // Add active class to current page nav links
+    document.querySelectorAll(`[data-page="${currentPage}"]`).forEach(link => {
+        link.classList.add('active');
+        console.log('Added active class to:', link); // Debug log
+    });
+}
 
-    // Load Footer Component
-    function loadFooter() {
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-                
-                // Update copyright year after footer is loaded
-                const currentYearElement = document.getElementById('current-year');
-                if (currentYearElement) {
-                    currentYearElement.textContent = new Date().getFullYear();
-                }
-            })
-            .catch(error => console.error('Error loading footer:', error));
-    }
+// Component Loader Script
+function loadHeader() {
+    fetch('header.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+            
+            // Wait a bit for DOM to update, then set active navigation
+            setTimeout(() => {
+                setActiveNavigation();
+                initializeMobileMenu();
+            }, 100);
+        })
+        .catch(error => {
+            console.error('Error loading header:', error);
+            // Fallback: try to set active navigation anyway
+            setTimeout(setActiveNavigation, 500);
+        });
+}
 
-    // Execute when DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        loadHeader();
-        loadFooter();
+// Initialize mobile menu functionality
+function initializeMobileMenu() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuButton && mobileMenu) {
+        // Remove any existing event listeners
+        mobileMenuButton.replaceWith(mobileMenuButton.cloneNode(true));
+        const newMobileMenuButton = document.getElementById('mobile-menu-button');
         
-        // Hide loader when page is loaded
-        setTimeout(() => {
-            document.querySelector('.page-loader').style.display = 'none';
-        }, 1000);
+        newMobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
         
-        // FAQ Accordion functionality
-        const faqButtons = document.querySelectorAll('.faq-button');
-        
-        faqButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const answer = button.nextElementSibling;
-                const icon = button.querySelector('i');
-                
-                // Close all other FAQ items
-                document.querySelectorAll('.faq-answer').forEach(item => {
-                    if (item !== answer) {
-                        item.classList.add('hidden');
-                        const otherIcon = item.previousElementSibling.querySelector('i');
-                        otherIcon.classList.remove('fa-minus', 'rotate-45');
-                        otherIcon.classList.add('fa-plus');
-                    }
-                });
-                
-                // Toggle current answer
-                answer.classList.toggle('hidden');
-                
-                // Toggle icon
-                if (answer.classList.contains('hidden')) {
-                    icon.classList.remove('fa-minus', 'rotate-45');
-                    icon.classList.add('fa-plus');
-                } else {
-                    icon.classList.remove('fa-plus');
-                    icon.classList.add('fa-minus', 'rotate-45');
-                }
+        // Close mobile menu when clicking on a link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
             });
         });
         
-        // Contact Form Submission handling
-        const contactForm = document.getElementById('contact-form');
-        const submitText = document.getElementById('submit-text');
-        const loadingSpinner = document.getElementById('loading-spinner');
-        const formSuccess = document.getElementById('form-success');
-        const formError = document.getElementById('form-error');
-        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !newMobileMenuButton.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    }
+}
 
-        // Back to top button
-        const backToTopButton = document.getElementById('back-to-top');
-        
+// Load Footer Component
+function loadFooter() {
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer-container').innerHTML = data;
+            
+            // Update copyright year after footer is loaded
+            const currentYearElement = document.getElementById('current-year');
+            if (currentYearElement) {
+                currentYearElement.textContent = new Date().getFullYear();
+            }
+        })
+        .catch(error => console.error('Error loading footer:', error));
+}
+
+// Execute when DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing components...'); // Debug log
+    
+    loadHeader();
+    loadFooter();
+    
+    // Hide loader when page is loaded
+    setTimeout(() => {
+        const loader = document.querySelector('.page-loader');
+        if (loader) {
+            loader.style.display = 'none';
+        }
+    }, 1000);
+    
+    // Back to top button functionality
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    if (backToTopButton) {
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
                 backToTopButton.classList.add('active');
@@ -878,27 +870,36 @@
                 behavior: 'smooth'
             });
         });
+    }
+    
+    // Animation on scroll
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.fade-up, .fade-right, .fade-left, .stagger-item');
         
-        // Animation on scroll
-        const animateOnScroll = () => {
-            const elements = document.querySelectorAll('.fade-up, .fade-right, .fade-left');
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
             
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementPosition < windowHeight - 100) {
-                    element.classList.add('animate');
-                }
-            });
-        };
-        
-        // Initial check
-        animateOnScroll();
-        
-        // Check on scroll
-        window.addEventListener('scroll', animateOnScroll);
-    });
+            if (elementPosition < windowHeight - 100) {
+                element.classList.add('animate');
+            }
+        });
+    };
+    
+    // Initial check for animations
+    animateOnScroll();
+    
+    // Check on scroll
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // Fallback: Set active navigation after a delay if header is loaded
+    setTimeout(() => {
+        if (document.querySelector('.nav-link')) {
+            setActiveNavigation();
+        }
+    }, 2000);
+});
+    // Set active nav link based on current URL or hash
     </script>
     
     <!-- Main JavaScript -->
